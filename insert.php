@@ -77,6 +77,8 @@ header('Access-Control-Allow-Origin: *');
          // Sanitise URL supplied values
          $uname    = filter_var($_REQUEST['uname'], FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_LOW);
          $user_id  = filter_var($_REQUEST['user_id'], FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_LOW);
+         $my_id  = filter_var($_REQUEST['my_id'], FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_LOW);
+         $fname  = filter_var($_REQUEST['fname'], FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_LOW);
          $msg      = filter_var($_REQUEST['msg'], FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_LOW);
 
          // Attempt to run PDO prepared statement
@@ -88,7 +90,7 @@ header('Access-Control-Allow-Origin: *');
             $stmt->bindParam(':msg', $msg, PDO::PARAM_STR);
             $stmt->execute();
 
-            $stmt    = $pdo->prepare("SELECT * FROM chat WHERE username = :username AND user_id = :user_id");
+            $stmt    = $pdo->prepare("SELECT * FROM chat WHERE username = :fname AND user_id = :my_id OR username = :uname AND user_id = :user_id");
             $stmt->execute();
             while($row  = $stmt->fetch(\PDO::FETCH_ASSOC))
                {

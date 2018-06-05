@@ -37,7 +37,7 @@ header('Access-Control-Allow-Origin: *');
          // Attempt to run PDO prepared statement
          try {
 
-            $stmt    = $pdo->prepare("SELECT * FROM chat");
+            $stmt    = $pdo->prepare("SELECT * FROM chat WHERE user_id IS NULL");
             $stmt->execute();
             while($row  = $stmt->fetch(\PDO::FETCH_ASSOC))
                   {  
