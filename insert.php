@@ -75,9 +75,9 @@ header('Access-Control-Allow-Origin: *');
       case "mysend":
 
          // Sanitise URL supplied values
-         $uname       = filter_var($_REQUEST['uname'], FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_LOW);
-         $user_id       = filter_var($_REQUEST['user_id'], FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_LOW);
-         $msg       = filter_var($_REQUEST['msg'], FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_LOW);
+         $uname    = filter_var($_REQUEST['uname'], FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_LOW);
+         $user_id  = filter_var($_REQUEST['user_id'], FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_LOW);
+         $msg      = filter_var($_REQUEST['msg'], FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_LOW);
 
          // Attempt to run PDO prepared statement
          try {
