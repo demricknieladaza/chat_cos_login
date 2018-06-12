@@ -119,4 +119,33 @@ header('Access-Control-Allow-Origin: *');
          }
 
       break;
+
+      case "seen":
+
+         // Sanitise URL supplied values
+         $my_ids  = ' '.filter_var($_REQUEST['my_id'], FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_LOW);
+         $my_idss  = filter_var($_REQUEST['my_id'], FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_LOW);
+         $fname  = filter_var($_REQUEST['fname'], FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_LOW);
+
+         // Attempt to run PDO prepared statement`
+         try {
+            // $sql  = "SELECT * FROM chat WHERE username = 'admin' AND user_id = 2 ";
+            // $stmt = $pdo->prepare($sql);
+            // $stmt->bindParam(':my_id', $my_id, PDO::PARAM_STR);
+            // $stmt->execute();
+            // $row = $stmt->rowCount();
+            // if($row == 0 ){
+              $sql  = "UPDATE chat set seen = CONCAT(IFNULL(seen,' '), :my_ids) WHERE username = :fname AND user_id = :my_idss AND seen IS NULL ";
+              $stmt = $pdo->prepare($sql);
+              $stmt->bindParam(':my_ids', $my_ids, PDO::PARAM_STR);
+              $stmt->bindParam(':my_idss', $my_idss, PDO::PARAM_STR);
+              $stmt->bindParam(':fname', $fname, PDO::PARAM_STR);
+              $stmt->execute();
+              echo $my_idss;
+         }
+         catch(PDOException $e)
+         {
+            echo $e->getMessage();
+         }
+      break;
   }
